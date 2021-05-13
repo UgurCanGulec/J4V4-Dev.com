@@ -1,17 +1,12 @@
 version: '3.1'
 
+#http://localhost:15672/#/ RabbitMq Management Console
 services:
-
-  db:
-    image: postgres
-    restart: always
+  spring-boot-rabbitmq:
+    image: rabbitmq:3-management
     ports:
-      - 5432:5432
+      - 15672:15672   #Arayuz portu
+      - 5672:5672     #Kuyruk portu
     environment:
-      POSTGRES_PASSWORD: 1234kumsal
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
+      - RABBITMQ_DEFAULT_USER=ugurcan
+      - RABBITMQ_DEFAULT_PASS=password

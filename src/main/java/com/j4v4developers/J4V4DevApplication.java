@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 public class J4V4DevApplication {
 
+
     public static void main(String[] args) {
         SpringApplication.run(J4V4DevApplication.class, args);
     }
