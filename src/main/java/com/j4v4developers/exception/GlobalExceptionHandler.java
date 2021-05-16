@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 
     @Override
@@ -48,6 +48,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("timestamp", LocalDate.now());
         body.put("message", "Auhtor Not Found !");
         body.put("error message", ex.getMessage());
+        logger.error("Author Not Found !");
         return new ResponseEntity<>(new BaseResponse<>(null, ErrorType.NOT_FOUND.name(), body,false), HttpStatus.NOT_FOUND);
     }
 
@@ -57,6 +58,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("timestamp", LocalDate.now());
         body.put("message", "Author List Is Empty !");
         body.put("error message", ex.getMessage());
+        logger.error("Author List Is Empty !");
         return new ResponseEntity<>(new BaseResponse<>(null, ErrorType.IS_EMPTY.name(), body,false), HttpStatus.NOT_FOUND);
     }
 
@@ -66,6 +68,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("timestamp", LocalDate.now());
         body.put("message", "Article Not Found !");
         body.put("error message", ex.getMessage());
+        logger.error("Article Not Found !");
         return new ResponseEntity<>(new BaseResponse<>(null, ErrorType.NOT_FOUND.name(), body,false), HttpStatus.NOT_FOUND);
     }
 
@@ -75,6 +78,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("timestamp", LocalDate.now());
         body.put("message", "Record could not delete because of child records !");
         body.put("error message", ex.getMessage());
+        logger.error("Record could not delete because of child records !");
         return new ResponseEntity<>(new BaseResponse<>(null, ErrorType.BAD_REQUEST.name(), body,false), HttpStatus.BAD_REQUEST);
     }
 
