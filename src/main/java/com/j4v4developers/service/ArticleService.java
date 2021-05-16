@@ -5,6 +5,8 @@ import com.j4v4developers.dto.ArticleDto;
 import com.j4v4developers.exception.ArticleNotFoundException;
 import com.j4v4developers.request.RequestArticleSearch;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ public class ArticleService {
     }
 
     @Transactional
+    //@Cacheable(cacheNames = "articleSaveCache")
     public ArticleDto saveOrUpdateArticle(ArticleDto articleDto) {
         return articleDao.saveOrUpdateArticle(articleDto);
     }

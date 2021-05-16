@@ -3,11 +3,12 @@ package com.j4v4developers.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class AuthorDto {
+public class AuthorDto implements Serializable {
 
     private Long authorId;
     private String name;
