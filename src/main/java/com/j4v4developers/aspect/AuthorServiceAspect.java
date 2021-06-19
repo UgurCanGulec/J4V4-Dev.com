@@ -5,6 +5,7 @@ import com.j4v4developers.dto.ArticleDto;
 import com.j4v4developers.dto.AuthorDto;
 import com.j4v4developers.exception.AuthorNotFoundException;
 import com.j4v4developers.exception.RecordCouldNotDeleteException;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -20,10 +21,10 @@ import java.util.stream.Collectors;
 
 @Aspect
 @Component
+@Slf4j
 public class AuthorServiceAspect {
 
     private final AuthorDao authorDao;
-    private final Logger logger = LoggerFactory.getLogger(AuthorServiceAspect.class);
 
     @Autowired
     public AuthorServiceAspect(AuthorDao authorDao) {
@@ -48,13 +49,13 @@ public class AuthorServiceAspect {
 
    @After("execution(* com.j4v4developers.service.AuthorService.deleteAuthorById(..))")
    public void afterAuthorIsDeleted(JoinPoint joinPoint) {
-        logger.info("Author has been deleted successfully who has id = " + joinPoint.getArgs()[0].toString());
+        log.info("Author has been deleted successfully who has id = " + joinPoint.getArgs()[0].toString());
    }
 
    @After("execution(* com.j4v4developers.service.AuthorService.saveOrUpdateAuthor(..))")
    public void afterAuthorSaveOrUpdate(JoinPoint joinPoint) {
         AuthorDto authorDto = (AuthorDto) joinPoint.getArgs()[0];
-        logger.info("Author has been inserted who has name & surname = " + authorDto.getName() + " & " + authorDto.getSurname());
+        log.info("Author has been inserted who has name & surname = " + authorDto.getName() + " & " + authorDto.getSurname());
    }
 
 
