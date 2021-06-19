@@ -3,11 +3,8 @@ package com.j4v4developers.service;
 import com.j4v4developers.dao.AuthorDao;
 import com.j4v4developers.dto.ArticleDto;
 import com.j4v4developers.dto.AuthorDto;
-import com.j4v4developers.entity.Author;
 import com.j4v4developers.exception.AuthorNotFoundException;
-import com.j4v4developers.exception.RecordCouldNotDeleteException;
 import com.j4v4developers.request.RequestAuthorSearch;
-import com.j4v4developers.validation.AuthorValidations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,12 +42,7 @@ public class AuthorService {
 
     @Transactional
     public AuthorDto deleteAuthorById(Long id) throws AuthorNotFoundException {
-        AuthorDto authorDto = authorDao.getAuthorById(id);
-        if (Boolean.TRUE.equals(AuthorValidations.validateAuthorIsAvailableForDelete.apply(authorDto))){
-            return authorDao.deleteAuthorById(id);
-        }else {
-            throw new RecordCouldNotDeleteException();
-        }
+        return authorDao.deleteAuthorById(id);
     }
 
     public Page<AuthorDto> getAuthorList(RequestAuthorSearch request, Pageable pageable) {

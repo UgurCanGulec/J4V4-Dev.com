@@ -3,7 +3,6 @@ package com.j4v4developers.service;
 import com.j4v4developers.dao.ArticleDao;
 import com.j4v4developers.dto.ArticleDto;
 import com.j4v4developers.exception.ArticleNotFoundException;
-import com.j4v4developers.mapper.ArticleMapper;
 import com.j4v4developers.request.RequestArticleSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -2,8 +2,6 @@ package com.j4v4developers.exception;
 
 import com.j4v4developers.util.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,9 +22,6 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-
-
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
@@ -38,7 +33,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
         body.put("errors", errors);
-        errors.forEach(logger::error);
+        errors.forEach(log::error);
         return new ResponseEntity<>(new BaseResponse<>(null, ErrorType.BAD_REQUEST.name(), body, false), HttpStatus.BAD_REQUEST);
 
     }
@@ -48,6 +43,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("timestamp", LocalDate.now());
         body.put("message", "Auhtor Not Found !");
         body.put("error message", ex.getMessage());
+        log.error("Author Not Found !");
         return new ResponseEntity<>(new BaseResponse<>(null, ErrorType.NOT_FOUND.name(), body,false), HttpStatus.NOT_FOUND);
     }
 
@@ -57,6 +53,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("timestamp", LocalDate.now());
         body.put("message", "Author List Is Empty !");
         body.put("error message", ex.getMessage());
+        log.error("Author List Is Empty !");
         return new ResponseEntity<>(new BaseResponse<>(null, ErrorType.IS_EMPTY.name(), body,false), HttpStatus.NOT_FOUND);
     }
 
@@ -66,6 +63,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("timestamp", LocalDate.now());
         body.put("message", "Article Not Found !");
         body.put("error message", ex.getMessage());
+        log.error("Article Not Found !");
         return new ResponseEntity<>(new BaseResponse<>(null, ErrorType.NOT_FOUND.name(), body,false), HttpStatus.NOT_FOUND);
     }
 
@@ -75,6 +73,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("timestamp", LocalDate.now());
         body.put("message", "Record could not delete because of child records !");
         body.put("error message", ex.getMessage());
+        log.error("Record could not delete because of child records !");
         return new ResponseEntity<>(new BaseResponse<>(null, ErrorType.BAD_REQUEST.name(), body,false), HttpStatus.BAD_REQUEST);
     }
 
